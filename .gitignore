@@ -3,3 +3,4 @@ obj/
 Debug/
 .dockerignore
 Dockerfile*
+*.dll
