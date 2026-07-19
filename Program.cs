@@ -6,15 +6,21 @@ using Telegram.Bot.Types.ReplyMarkups;
 
 var configuration = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
-    .AddJsonFile("appsettings.json", optional: false)
+    .AddJsonFile("appsettings.json", optional: true)
+    .AddEnvironmentVariables()
     .Build();
 
-var botToken = configuration["BotSettings:Token"];
-var adminChatId = configuration["BotSettings:AdminChatId"];
+var botToken = configuration["BOT_TOKEN"]
+    ?? configuration["BotSettings:Token"]
+    ?? configuration["BotSettings__Token"];
+
+var adminChatId = configuration["ADMIN_CHAT_ID"]
+    ?? configuration["BotSettings:AdminChatId"]
+    ?? configuration["BotSettings__AdminChatId"];
 
 if (string.IsNullOrWhiteSpace(botToken) || string.IsNullOrWhiteSpace(adminChatId))
 {
-    Console.WriteLine("Please set BotSettings:Token and BotSettings:AdminChatId in appsettings.json.");
+    Console.WriteLine("Please set BOT_TOKEN/ADMIN_CHAT_ID or BotSettings:Token/BotSettings:AdminChatId.");
     return;
 }
 
