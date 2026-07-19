@@ -4,3 +4,4 @@ Debug/
 .dockerignore
 Dockerfile*
 *.dll
+appsettings.json
